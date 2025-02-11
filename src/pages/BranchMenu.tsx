@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { menuService } from '../services/menuService';
 import MenuList from '../components/menu/MenuList';
 import type { MenuItem } from '../types/menu';
 
-interface BranchMenuProps {
-  branchId: string;
-}
-
-const BranchMenu = ({ branchId }: BranchMenuProps) => {
+const BranchMenu = () => {
+  const { branchId } = useParams<{ branchId: string }>();
   const [items, setItems] = useState<MenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>();
 
   useEffect(() => {
     const fetchMenu = async () => {
+      if (!branchId) return;
       try {
         setIsLoading(true);
         const response = await menuService.getBranchMenu(branchId);
@@ -29,11 +30,15 @@ const BranchMenu = ({ branchId }: BranchMenuProps) => {
     fetchMenu();
   }, [branchId]);
 
+  if (!branchId) {
+    return <div>Branch ID not provided</div>;
+  }
+
   return (
     <div className="space-y-6">
       <div className="bg-white shadow rounded-lg p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          Menú de la Sucursal
+          Menú de la Sucursal {branchId}
         </h2>
         <MenuList items={items} isLoading={isLoading} error={error} />
       </div>
