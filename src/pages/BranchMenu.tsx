@@ -31,13 +31,13 @@ const BranchMenu = () => {
   }, [branchId]);
 
   if (!branchId) {
-    return <div>Branch ID not provided</div>;
+    return <div className="text-error">Branch ID not provided</div>;
   }
 
   return (
     <div className="space-y-6">
-      <div className="bg-white shadow rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <div className="bg-base-100 shadow rounded-lg p-6">
+        <h2 className="text-2xl font-bold text-primary mb-4">
           Menú de la Sucursal {branchId}
         </h2>
         <MenuList items={items} isLoading={isLoading} error={error} />
