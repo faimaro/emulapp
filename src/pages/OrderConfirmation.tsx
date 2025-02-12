@@ -26,7 +26,6 @@ const OrderConfirmation = () => {
     paymentMethod: 'cash',
   });
 
-  // Example order item - in a real app, this would come from your cart/state management
   const orderItems: OrderItem[] = [
     {
       name: 'Nombre del Producto',

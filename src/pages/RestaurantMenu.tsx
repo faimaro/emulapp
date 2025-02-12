@@ -31,7 +31,7 @@ const RestaurantMenu = () => {
       if (!restaurantId) throw new Error('Restaurant ID is required');
 
       if (selectedCategory === 'all') {
-        return menuService.getRestaurantMenu(restaurantId);
+        return menuService.getBranchMenu(restaurantId);
       } else {
         const items = await menuService.getMenuItemsByCategory(
           restaurantId,
@@ -39,7 +39,7 @@ const RestaurantMenu = () => {
         );
         return {
           menuItems: items,
-          restaurant: data?.restaurant ?? ({} as Restaurant), // Fallback to empty object if data is undefined
+          restaurant: data?.restaurant ?? ({} as Restaurant),
         };
       }
     },

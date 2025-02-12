@@ -1,29 +1,26 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import Home from './pages/Home';
-import BranchMenu from './pages/BranchMenu';
-import OrderConfirmation from './pages/OrderConfirmation';
-import RestaurantMenu from './pages/RestaurantMenu';
-import RestaurantLanding from './pages/BranchLanding';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
-const queryClient = new QueryClient();
+const Home = lazy(() => import('./pages/Home'));
+const BranchMenu = lazy(() => import('./pages/BranchMenu'));
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
       <Router>
         <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/menu/:branchId" element={<BranchMenu />} />
-            <Route path="/order/confirm" element={<OrderConfirmation />} />
-            <Route path="/restaurant/:id" element={<RestaurantLanding />} />
-            <Route path="/restaurant/:id/menu" element={<RestaurantMenu />} />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/menu/:branchId" element={<BranchMenu />} />
+            </Routes>
+          </Suspense>
         </Layout>
       </Router>
-    </QueryClientProvider>
+    </Provider>
   );
 }
 

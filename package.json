@@ -11,11 +11,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
     "@tanstack/react-query": "^5.66.0",
+    "@types/react-redux": "^7.1.34",
     "daisyui": "^4.12.23",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5"
   },
   "devDependencies": {

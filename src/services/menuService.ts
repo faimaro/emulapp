@@ -1,18 +1,18 @@
 import type { MenuItem, Restaurant } from '../types/menu';
 
-interface MenuResponse {
+export interface MenuResponse {
   restaurant: Restaurant;
   menuItems: MenuItem[];
 }
 
 export const menuService = {
-  async getRestaurantMenu(restaurantId: string): Promise<MenuResponse> {
+  async getBranchMenu(restaurantId: string): Promise<MenuResponse> {
     try {
       const response = await fetch(`/api/restaurants/${restaurantId}/menu`);
       if (!response.ok) {
         throw new Error('Error al cargar el menú');
       }
-      return response.json();
+      return (await response.json()) as MenuResponse;
     } catch (error) {
       console.error('Error fetching menu:', error);
       throw error;
@@ -30,7 +30,7 @@ export const menuService = {
       if (!response.ok) {
         throw new Error('Error al cargar los items del menú');
       }
-      return response.json();
+      return (await response.json()) as MenuItem[];
     } catch (error) {
       console.error('Error fetching menu items:', error);
       throw error;
